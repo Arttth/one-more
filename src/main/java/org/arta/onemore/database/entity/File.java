@@ -23,4 +23,9 @@ public class File implements BaseEntity<Integer> {
     @ManyToOne
     @JoinColumn(name = "task_id")
     private Task task;
+
+    void setTask(Task task) {
+        this.task = task;
+        task.getFiles().add(this);
+    }
 }

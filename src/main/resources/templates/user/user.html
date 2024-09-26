@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Пользователь</title>
+</head>
+<body>
+    <form th:action="@{/users/{userId}/update(userId=${user.id})}" method="post" th:object="${user}">
+        <label for="firstname">Имя:
+            <input id="firstname" type="text" name="firstname" th:value="*{firstname}" />
+        </label><br/>
+        <label for="lastname">Фамилия:
+            <input id="lastname" type="text" name="lastname" th:value="*{lastname}" />
+        </label><br/>
+        <label for="nickname">Никнейм:
+            <input id="nickname" type="text" name="nickname" th:value="*{nickname}" />
+        </label><br/>
+        <label for="email">Почта:
+            <input id="email" type="text" name="email" th:value="*{email}" />
+        </label><br/>
+        <label for="birthday">Дата рожления:
+            <input id="birthday" type="date" name="birthday" th:value="*{birthday}" />
+        </label><br/>
+        <label for="respect">Уважение:
+            <input id="respect" type="text" name="respect" th:value="*{respect}" />
+        </label><br/>
+        <div th:each="role : ${roles}">
+            <input th:id="${role}" type="radio" name="role" th:value="${role}" th:checked="${role == user.role}">
+            <label th:for="${role}" th:text="${role}">Role name</label>
+        </div>
+        <button type="submit">Обновить</button>
+    </form>
+    <form th:if="${user.role.name() == 'ADMIN'}" method="post" th:action="@{/users/{userId}/delete(userId=${user.id})}" >
+        <button type="submit">Удалить</button>
+    </form>
+</body>
+</html>

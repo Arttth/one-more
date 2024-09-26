@@ -34,4 +34,27 @@ public class Task implements BaseEntity<Integer> {
     @OneToMany(mappedBy = "task")
     @Builder.Default
     private List<TaskSubject> taskSubjects = new ArrayList<>();
+    @OneToMany(mappedBy = "task", fetch = FetchType.LAZY)
+    @Builder.Default
+    private List<File> files = new ArrayList<>();
+    @OneToMany(mappedBy = "task", fetch = FetchType.LAZY)
+    @Builder.Default
+    private List<Solution> solutions = new ArrayList<>();
+
+    public void addFile(File file) {
+        file.setTask(this);
+    }
+
+    public void addSolution(Solution solution) {
+        this.solutions.add(solution);
+        solution.setTask(this);
+    }
+
+    public void setAuthor(User user) {
+        user.addTask(this);
+    }
+
+    public void addTaskSubject(TaskSubject taskSubject) {
+        taskSubject.setTask(this);
+    }
 }

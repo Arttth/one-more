@@ -25,10 +25,24 @@ public class Subject implements BaseEntity<Integer>{
     @ManyToOne
     @JoinColumn(name = "parent_subject_id")
     private Subject parentSubject;
-    @OneToMany(mappedBy = "parentSubject")
+    @OneToMany(mappedBy = "parentSubject", fetch = FetchType.LAZY)
     @Builder.Default
-    private List<Subject> subSubjects = new ArrayList<>();
-    @OneToMany(mappedBy = "subject")
+    private List<Subject> childSubjects = new ArrayList<>();
+    @OneToMany(mappedBy = "subject", fetch = FetchType.LAZY)
     @Builder.Default
     private List<TaskSubject> taskSubjects = new ArrayList<>();
+
+    public void addChildSubject(Subject subject) {
+        subject.setParentSubject(this);
+        this.childSubjects.add(subject);
+    }
+
+    public void setParentSubject(Subject subject) {
+        this.parentSubject = subject;
+        subject.getChildSubjects().add(this);
+    }
+
+    public void addTaskSubject(TaskSubject taskSubject) {
+        taskSubject.setSubject(this);
+    }
 }

@@ -12,3 +12,11 @@ spring:
         show_sql: true
         format_sql: true
         hbm2ddl.auto: validate
+    open-in-view: false
+
+logging:
+  level:
+    root: WARN
+  file:
+    name: one-more-logs
+    path: /

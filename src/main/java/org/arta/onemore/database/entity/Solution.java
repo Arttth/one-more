@@ -27,10 +27,18 @@ public class Solution implements BaseEntity<Integer> {
     private LocalDateTime creatingTime;
     @Column(nullable = false)
     private Integer likes;
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "task_id", nullable = false)
     private Task task;
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "author_id", nullable = false)
     private User author;
+
+    public void setTask(Task task) {
+        task.addSolution(this);
+    }
+
+    public void setAuthor(User user) {
+        user.addSolution(this);
+    }
 }

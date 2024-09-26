@@ -7,6 +7,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -34,6 +36,22 @@ public class User implements BaseEntity<Integer>{
     private Role role;
     @Column(nullable = false)
     private LocalDate birthday;
-    @Column(nullable = false)
+    @Column(nullable = false, columnDefinition = "integer default 0")
     private Integer respect;
+    @OneToMany(mappedBy = "author", fetch = FetchType.LAZY)
+    @Builder.Default
+    private List<Solution> solutions = new ArrayList<>();
+    @OneToMany(mappedBy = "author", fetch = FetchType.LAZY)
+    @Builder.Default
+    private List<Task> tasks = new ArrayList<>();
+
+    public void addSolution(Solution solution) {
+        this.solutions.add(solution);
+        solution.setAuthor(this);
+    }
+
+    public void addTask(Task task) {
+        this.tasks.add(task);
+        task.setAuthor(this);
+    }
 }

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Пользователи</title>
+</head>
+<body>
+    <form method="get" th:action="@{/users}">
+        <label for="firstname">Имя:
+            <input type="text" id="firstname" name="firstname">
+        </label>
+        <label for="lastname">Фамилия:
+            <input type="text" id="lastname" name="lastname">
+        </label>
+        <label for="nickname">Никнейм:
+            <input type="text" id="nickname" name="nickname">
+        </label>
+        <label for="respect">Авторитет:
+            <input type="text" id="respect" name="respect">
+        </label>
+        <button type="submit">Фильтровать</button>
+    </form>
+    <div th:each="user : ${users}">
+        <a th:href="@{'/users/' + ${user.id}}" th:text="|${user.id}. ${user.firstname} ${user.lastname}|">User</a>
+    </div>
+</body>
+</html>
