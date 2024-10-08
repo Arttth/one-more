@@ -7,16 +7,16 @@
 <body>
     <form method="get" th:action="@{/users}">
         <label for="firstname">Имя:
-            <input type="text" id="firstname" name="firstname">
+            <input type="text" id="firstname" name="firstname" th:value="${filter.firstname()}">
         </label>
         <label for="lastname">Фамилия:
-            <input type="text" id="lastname" name="lastname">
+            <input type="text" id="lastname" name="lastname" th:value="${filter.lastname()}">
         </label>
         <label for="nickname">Никнейм:
-            <input type="text" id="nickname" name="nickname">
+            <input type="text" id="nickname" name="nickname" th:value="${filter.nickname()}">
         </label>
         <label for="respect">Авторитет:
-            <input type="text" id="respect" name="respect">
+            <input type="text" id="respect" name="respect" th:value="${filter.respect()}">
         </label>
         <button type="submit">Фильтровать</button>
     </form>
